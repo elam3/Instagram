@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -65,7 +64,7 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Home-->
         <scene sceneID="flL-nK-sCE">
             <objects>
                 <viewController storyboardIdentifier="homeViewCtrlr" id="mwD-aL-kbe" customClass="HomeViewController" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
@@ -100,25 +99,77 @@
                             <constraint firstItem="N1w-uK-KYc" firstAttribute="leading" secondItem="TZs-hj-pr4" secondAttribute="leading" id="x1y-aP-Z5J"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="epD-w9-kfj">
-                        <barButtonItem key="leftBarButtonItem" title="Home" id="fVt-kM-2MD"/>
-                        <rightBarButtonItems>
-                            <barButtonItem title="Profile" id="PUh-ig-5il">
-                                <connections>
-                                    <action selector="onProfileBtnPressed:" destination="mwD-aL-kbe" id="b9N-Pg-Lni"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Capture" id="GEa-Wv-8qI"/>
-                        </rightBarButtonItems>
+                    <navigationItem key="navigationItem" title="Home" id="epD-w9-kfj">
+                        <barButtonItem key="leftBarButtonItem" title="Capture" id="GEa-Wv-8qI">
+                            <connections>
+                                <action selector="onCaptureBtnPressed:" destination="mwD-aL-kbe" id="XTz-K3-NKk"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Profile" id="PUh-ig-5il">
+                            <connections>
+                                <action selector="onProfileBtnPressed:" destination="mwD-aL-kbe" id="b9N-Pg-Lni"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="N1w-uK-KYc" id="HkO-Lj-k28"/>
                         <segue destination="yUr-QQ-0Og" kind="show" identifier="segueFromHomeToProfile" id="s6p-w6-zy7"/>
+                        <segue destination="JBt-cg-s0n" kind="show" identifier="segueFromHomeToCapture" id="z2F-WY-iQt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lpx-he-3o1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1840.8" y="138.98050974512745"/>
+        </scene>
+        <!--Capture-->
+        <scene sceneID="l5O-LP-8IH">
+            <objects>
+                <viewController title="Capture" id="JBt-cg-s0n" customClass="CaptureViewController" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MNj-Ov-DuO"/>
+                        <viewControllerLayoutGuide type="bottom" id="3xn-ye-4m3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uht-bu-2aj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVk-ZB-S5i">
+                                <rect key="frame" x="62" y="96" width="250" height="250"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                <state key="normal" title="Tap to take or select a photo"/>
+                                <connections>
+                                    <action selector="onPhotoBtnPressed:" destination="JBt-cg-s0n" eventType="touchUpInside" id="o4n-RV-3xn"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a caption..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xk6-Lu-abj">
+                                <rect key="frame" x="16" y="395" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ipV-O4-Wr0">
+                                <rect key="frame" x="75" y="476" width="225" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="onSubmitBtnPressed:" destination="JBt-cg-s0n" eventType="touchUpInside" id="aNb-40-qFr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="captionTextField" destination="Xk6-Lu-abj" id="cmI-wh-jK0"/>
+                        <outlet property="photoBtn" destination="YVk-ZB-S5i" id="r4o-Kb-TVw"/>
+                        <outlet property="submitBtn" destination="ipV-O4-Wr0" id="vVO-5h-XQm"/>
+                        <segue destination="mwD-aL-kbe" kind="show" identifier="segueFromCaptureToHome" id="p2A-Du-c8R"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CW3-lA-y7n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2637.5999999999999" y="138.98050974512745"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="81O-Y2-aha">
@@ -152,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dSA-23-0SY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="902" y="866"/>
+            <point key="canvasLocation" x="1386" y="899"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="L1E-g9-VVz">
@@ -173,4 +224,7 @@
             <point key="canvasLocation" x="901.60000000000002" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="p2A-Du-c8R"/>
+    </inferredMetricsTieBreakers>
 </document>

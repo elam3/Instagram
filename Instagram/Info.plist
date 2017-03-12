@@ -43,7 +43,12 @@
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSAllowsArbitraryLoads</key><true/>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 	</dict>
+	<key>Privacy - Camera Usage Description</key>
+	<string>$(PRODUCT_NAME) uses the camera to take capture an image to upload and share on app</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME) uses the photo library to choose an image to upload and share on app</string>
 </dict>
 </plist>

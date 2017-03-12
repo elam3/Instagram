@@ -42,6 +42,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func onProfileBtnPressed(_ sender: Any) {
         performSegue(withIdentifier: "segueFromHomeToProfile", sender: nil)
     }
+    
+    @IBAction func onCaptureBtnPressed(_ sender: Any) {
+        performSegue(withIdentifier: "segueFromHomeToCapture", sender: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
