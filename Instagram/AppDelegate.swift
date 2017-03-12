@@ -29,6 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         )
         
+        if PFUser.current() != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewCtrlr = storyboard.instantiateViewController(withIdentifier: "InstagramNavigationCtrlr")
+            window?.rootViewController = viewCtrlr
+        }
+        
         return true
     }
 

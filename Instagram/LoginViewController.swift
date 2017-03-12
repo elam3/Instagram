@@ -27,12 +27,15 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func onSignInBtnPressed(_ sender: Any) {
-        PFUser.logInWithUsername(inBackground: self.userNameTextField.text!, password: self.passwordTextField.text!) { (user: PFUser?, error: Error?) in
+        let username:String = self.userNameTextField.text ?? ""
+        let password:String = self.passwordTextField.text ?? ""
+        
+        PFUser.logInWithUsername(inBackground: username, password: password) { (user: PFUser?, error: Error?) in
             if user != nil {
                 print("We have logged in!")
                 self.performSegue(withIdentifier: "loginSegue", sender: nil)
             } else {
-                print("LogIn Error: \(error?.localizedDescription)")
+                print("Log In Error: \(error?.localizedDescription)")
             }
         }
     }
