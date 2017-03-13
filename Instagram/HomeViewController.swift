@@ -50,6 +50,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 150
+        
         print("Making a query")
         queryPosts()
         print("Made a query")
@@ -81,7 +84,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.captionLabel.text = post["caption"] as! String?
         
         //TODO : fetch image from PFObject
-        cell.postImageView.file = post["media"] as! PFFile
+        cell.postImageView.file = post["media"] as? PFFile
         cell.postImageView.loadInBackground()
         
         return cell
