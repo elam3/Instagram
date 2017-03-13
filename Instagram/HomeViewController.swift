@@ -8,18 +8,54 @@
 
 import UIKit
 import Parse
+import ParseUI
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
+    var posts: [PFObject] = []
+    
+    public func queryPosts() {
+        // construct PFQuery
+        let query = PFQuery(className: "Post")
+        query.order(byDescending: "createdAt")
+        query.includeKey("author")
+        query.limit = 20
+        
+        print("Fetching data...")
+        // fetch data asynchronously
+        query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
+            if let posts = posts {
+                // do something with the data fetched
+                self.posts = posts
+                print("Retrived the Posts!")
+                print("findObjectsInBackground: \n\(posts)")
+                
+                print("findObjectsInBackground : reloadData ...")
+                self.tableView.reloadData()
+                print("findObjectsInBackground : Data Reloaded")
+            } else {
+                // handle error
+                print("findObjectsInBackground Error : \(error?.localizedDescription)")
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("View Did Load")
         
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.tableView.reloadData()
+        print("Making a query")
+        queryPosts()
+        print("Made a query")
+        
+        //print("Reloading tableView")
+        //self.tableView.reloadData()
 
         // Do any additional setup after loading the view.
     }
@@ -30,12 +66,24 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        print("numberOfRowsInSection: \(posts.count)")
+        return posts.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
-        cell.textLabel?.text = "row: \(indexPath.row)"
+        
+        //cell.post = posts[indexPath.row]
+        //let post = Post.init(obj: posts[indexPath.row])
+        //print("cellForRowAt: \(posts[indexPath.row])")
+        let post = posts[indexPath.row]
+        //cell.postImageView = post["media"]
+        cell.captionLabel.text = post["caption"] as! String?
+        
+        //TODO : fetch image from PFObject
+        cell.postImageView.file = post["media"] as! PFFile
+        cell.postImageView.loadInBackground()
+        
         return cell
     }
     

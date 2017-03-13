@@ -10,6 +10,15 @@ import UIKit
 import Parse
 
 class Post: NSObject {
+    
+    var postImage: UIImageView?
+    var captionText: String?
+    
+    init(obj: PFObject) {
+        self.postImage = obj["image"] as! UIImageView?
+        self.captionText = obj["caption"] as! String?
+    }
+    
     /**
      * Other methods
      */
@@ -34,18 +43,6 @@ class Post: NSObject {
         
         // Save object (following function will save the object in Parse asynchronously)
         post.saveInBackground(block: completion)
-        /*
-        post.saveInBackground { (status: Bool, error: Error?) in
-            if status {
-                print("Post saved in background.")
-            } else {
-                print("Post did not save in background?")
-            }
-            if error != nil {
-                print("SaveInBackground Error: \(error?.localizedDescription)")
-            }
-        }
-        */
     }
     
     /**
